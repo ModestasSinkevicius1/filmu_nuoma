@@ -11,16 +11,16 @@ function Create(){
             <div className="input-container">
                 <div className="select-container">
                     <label htmlFor="input_select_genre" className="select-title">Genre:</label>
-                    <select className="input-select" value={0} id='input_select_genre' name='input_select_genre'>
-                        <option value={0} disabled>Choose</option>
-                        <option value={1}>Bob</option>
+                    <select className="input-select" id='input_select_genre' name='input_select_genre'>
+                        <option value='sd' disabled>Choose</option>
+                        <option value='ds'>Bob</option>
                     </select>
                 </div>
                 <div className="select-container">
                     <label htmlFor="input_select_rating" className="select-title">Rating:</label>
-                    <select className="input-select" value={0} id='input_select_rating' name='input_select_rating'>
-                        <option value={0} disabled>Choose</option>
-                        <option value={1}>Bob</option>
+                    <select className="input-select" id='input_select_rating' name='input_select_rating'>
+                        <option value='sd' disabled>Choose</option>
+                        <option value='ds'>Bob</option>
                     </select>
                 </div>
             </div>
