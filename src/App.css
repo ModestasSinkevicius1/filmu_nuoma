@@ -104,6 +104,23 @@ footer span{
   box-shadow: 2px 2px 5px #000000a7;
 }
 
+.btn.edit-btn{
+  margin: 10px;
+}
+
+.stars, .btn.edit-btn{
+  margin-right: 10px
+}
+
+.star-rate{
+  margin: 5px;
+}
+
+.star-rate img{
+  width: 25px;
+  height: auto;
+}
+
 hr{
   width: 100%;
   background-color:#1d1b1b;
@@ -176,6 +193,11 @@ h3{
   display: flex;
   justify-content: flex-end;
   width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
 }
 
 /* Star system */
@@ -189,4 +211,141 @@ h3{
 
 #star-rate-5{
   transform: scale(-1, 1);
+}
+
+/* New */
+
+.new-text{
+  border-radius: 5px;
+  width: 100%;
+}
+
+.input-container-new{
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.input-container-new .btn{
+  align-self: centers;
+}
+
+.img-bin{
+  margin: 10px;
+}
+
+.img-bin img{
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+}
+
+.btn-new{
+  margin-top: 30px;
+}
+
+.new-file{
+  padding: 0;
+}
+
+.new-file::-webkit-file-upload-button{
+  background-color: #1d1b1b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.img-bin img::before{
+  content: '';
+  color: red;
+  position: absolute;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.img-bin{
+  position: relative;
+}
+
+.img-bin .preview-image-icon{
+  position: absolute;
+  top: 5px;
+  right: 45px;
+  width: 25px;
+  height: 25px;
+  z-index: 2;
+  opacity: 50%;
+  cursor: pointer;
+  transition: opacity 0.1s ease-in;
+}
+
+.preview-image-icon:hover{
+  opacity: 100%;
+}
+
+.item-image-container{
+  background-color: white;
+  height: 250px;
+  width: 180px;
+}
+
+/* Edit */
+
+.edit{
+  position: fixed;
+  top: 25%;
+  right: 40%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color:#1d1b1b;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 4px 4px 2px #000000bb;
+}
+
+.edit-header{
+  color: white;
+}
+
+.edit-inputs{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-select{
+  width: 200px;
+}
+
+.text-edit{
+  border-radius: 5px;
+  width: 200px;
+}
+
+.edit-select,
+.text-edit{
+  margin: 10px;
+}
+
+.btn-edit{
+  margin: 5px;
+}
+
+.edit-header-container{
+  position: relative;
+}
+
+.exit-btn{
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  color: white;
+  top: 0;
+  right: 0;
 }
