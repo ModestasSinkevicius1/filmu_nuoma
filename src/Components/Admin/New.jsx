@@ -49,7 +49,7 @@ function New(){
                 </div>
                 <div className="select-container">
                     <label htmlFor="input_select_genre" className="select-title">New genre:</label>
-                    <select className="input-select" id='input_select_genre' name='input_select_genre' value={cat} onChange={e => setCat(e.target.value)}>
+                    <select className="input-select select-new" id='input_select_genre' name='input_select_genre' value={cat} onChange={e => setCat(e.target.value)}>
                         <option value='none' disabled>Choose</option>
                         <option value='Drama'>Drama</option>
                         <option value='Action'>Action</option>
