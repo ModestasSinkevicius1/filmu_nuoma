@@ -12,8 +12,10 @@ function Create(){
                 <div className="select-container">
                     <label htmlFor="input_select_genre" className="select-title">Genre:</label>
                     <select className="input-select" id='input_select_genre' name='input_select_genre'>
-                        <option value='sd' disabled>Choose</option>
-                        <option value='ds'>Bob</option>
+                        <option value='none' disabled>Choose</option>
+                        <option value='Drama'>Drama</option>
+                        <option value='Action'>Action</option>
+                        <option value='Comedy'>Comedy</option>
                     </select>
                 </div>
                 <div className="select-container">

@@ -8,6 +8,8 @@ import MovieContext from './Contexts/MovieContext';
 import New from './Components/Admin/New';
 import Edit from './Components/Admin/Edit';
 
+import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+
 function App() {
 
   const [movies, setMovies] = useState(null);
@@ -55,32 +57,45 @@ function App() {
     .then(res => setRefresh(Date.now()));
   }, [deleteData]);
 
+  useEffect(() => {
+    if(null === editData){
+      return;
+    }
+    axios.put('http://localhost:3007/movies/full/'+ editData.id, editData)
+    .then(res => setRefresh(Date.now()));
+  }, [editData])
+
   return (
-    <div className="App">
-      <MovieContext.Provider value={{
-        movies,
-        setData,
-        setCreate,
-        setDeleteData,
-        modalEdit,
-        setModalEdit,
-      }}>
-      <header className="App-header">
-        <nav>
-          <span>Admin</span>
-          <span>Client</span>
-        </nav>
-        <Create />
-        <New />
-        <List />
-      </header>
-      <footer>
-        <span className='footer-title'>Filmai inc.</span>
-        <span>&copy; Anonymous</span>
-      </footer>
-      <Edit />
-      </MovieContext.Provider>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <MovieContext.Provider value={{
+          movies,
+          setData,
+          setCreate,
+          setDeleteData,
+          modalEdit,
+          setModalEdit,
+          setEditData,
+        }}>
+        <header className="App-header">
+          <nav>
+            <NavLink to='admin' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Admin</NavLink>
+            <NavLink to='client' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Client</NavLink>
+          </nav>
+          <Create />
+          <Routes>
+            <Route path='admin' element={<New />}></Route>
+          </Routes>
+          <List />
+        </header>
+        <footer>
+          <span className='footer-title'>Filmai inc.</span>
+          <span>&copy; Anonymous</span>
+        </footer>
+        <Edit />
+        </MovieContext.Provider>
+      </div>
+    </BrowserRouter>
   );
 }
 

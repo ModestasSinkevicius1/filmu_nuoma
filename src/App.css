@@ -45,6 +45,17 @@ nav, footer{
   box-shadow: 4px 4px 2px #1d1b1ba7;
 }
 
+.nav-link{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.nav-link.active{
+  color:#da2d0f;
+}
+
 footer{
   justify-content: center;
   flex-direction: column;
@@ -202,15 +213,16 @@ h3{
 
 /* Star system */
 
+#star-rate-5{
+  transform: scale(-1, 1);
+}
+
 .star-rate{
-  user-select: none;
-  font-size: 24px;
-  font-weight: bold;
   cursor: pointer;
 }
 
-#star-rate-5{
-  transform: scale(-1, 1);
+.star-rate:hover{
+  filter: invert(20%) sepia(44%) saturate(13061%) hue-rotate(347deg) brightness(81%) contrast(114%);
 }
 
 /* New */
@@ -291,13 +303,16 @@ h3{
   background-color: white;
   height: 250px;
   width: 180px;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
 }
 
 /* Edit */
 
 .edit{
   position: fixed;
-  top: 25%;
+  top: 10%;
   right: 40%;
   width: 20%;
   display: flex;
@@ -311,6 +326,9 @@ h3{
 
 .edit-header{
   color: white;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .edit-inputs{
@@ -320,7 +338,7 @@ h3{
 }
 
 .edit-select{
-  width: 200px;
+  width: 210px;
 }
 
 .text-edit{
@@ -334,7 +352,7 @@ h3{
 }
 
 .btn-edit{
-  margin: 5px;
+  margin: 25px 5px 5px 5px;
 }
 
 .edit-header-container{
@@ -348,4 +366,6 @@ h3{
   color: white;
   top: 0;
   right: 0;
+  filter: invert(100%);
+  cursor: pointer;
 }

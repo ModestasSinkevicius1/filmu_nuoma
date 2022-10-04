@@ -2,6 +2,8 @@ import { useContext } from "react";
 import MovieContext from "../Contexts/MovieContext";
 import Control from "./Admin/Control.jsx";
 import star from '../imgs/icons/star.svg';
+import noImage from '../imgs/no-image.jpg';
+import { Route, Routes } from "react-router-dom";
 
 function ListItem({ movies }){
 
@@ -13,7 +15,6 @@ function ListItem({ movies }){
         const count = parseInt(movie.rate_count) + 1;
         const avg = sum / count;
         //useblackbox.io/landingPage
-        console.log(movie);
         setData({
             id: movie.id,
             rating: avg,
@@ -25,7 +26,7 @@ function ListItem({ movies }){
         movies?.map(m => 
         <div className="list-item" key={m.id}>
             <div className="item-image-container">
-
+                {m.image ? <img src={m.image} alt={m.title}></img> : <><img src={noImage} alt='not found'></img> <h1 style={{position: 'absolute', fontSize: '16px', marginTop: '200px'}}>Wheres image? </h1></>}        
             </div>
             <div className="left-item">
                 <div className="item-info-minor">
@@ -55,7 +56,10 @@ function ListItem({ movies }){
                         <img src={star} alt='star'></img>
                     </span>
                 </div>
-                <Control movie ={m}/>
+                <Routes>
+                    <Route path='admin' element={<Control movie ={m}/>}></Route>
+                </Routes>
+                
             </div>
         </div>)      
     );

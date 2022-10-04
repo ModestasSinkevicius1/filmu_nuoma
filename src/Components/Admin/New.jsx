@@ -13,7 +13,6 @@ function New(){
     const [title, setTitle] = useState('');
     const [cat, setCat] = useState('ds');
     const [price, setPrice] = useState('');
-    const [inStock, setInStock] = useState(false);    
 
     const fileInput = useRef();
 
@@ -24,6 +23,7 @@ function New(){
             title,
             price,
             cat,
+            image: photoPrint,
         });
         setTitle('');
         setPrice('');
@@ -50,8 +50,10 @@ function New(){
                 <div className="select-container">
                     <label htmlFor="input_select_genre" className="select-title">New genre:</label>
                     <select className="input-select" id='input_select_genre' name='input_select_genre' value={cat} onChange={e => setCat(e.target.value)}>
-                        <option value='sd' disabled>Choose</option>
-                        <option value='ds'>Bob</option>
+                        <option value='none' disabled>Choose</option>
+                        <option value='Drama'>Drama</option>
+                        <option value='Action'>Action</option>
+                        <option value='Comedy'>Comedy</option>
                     </select>
                 </div>
                 <div className="select-container">
