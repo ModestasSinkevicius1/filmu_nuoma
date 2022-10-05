@@ -9,7 +9,7 @@ function ListItem({ movies }){
 
     const { setData } = useContext(MovieContext); 
 
-    const rateMovie = (movie, rate) =>{
+    const rateMovie = (movie, rate, genre) =>{
 
         const sum = rate + parseFloat(movie.rate_sum);
         const count = parseInt(movie.rate_count) + 1;
@@ -21,9 +21,10 @@ function ListItem({ movies }){
             rate_count: parseInt(count),
             rate_sum: parseFloat(sum),
         });
-    }
+    } 
+
     return(
-        movies?.map(m => 
+        movies?.map(m => m.show ?
         <div className="list-item" key={m.id}>
             <div className="item-image-container">
                 {m.image ? <img src={m.image} alt={m.title}></img> : <><img src={noImage} alt='not found'></img> <h1 style={{position: 'absolute', fontSize: '16px', marginTop: '200px'}}>Wheres image? </h1></>}        
@@ -61,7 +62,7 @@ function ListItem({ movies }){
                 </Routes>
                 
             </div>
-        </div>)      
+        </div> : null)      
     );
 }
 

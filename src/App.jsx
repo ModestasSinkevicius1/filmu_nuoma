@@ -9,6 +9,7 @@ import New from './Components/Admin/New';
 import Edit from './Components/Admin/Edit';
 
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import { useRef } from 'react';
 
 function App() {
 
@@ -26,9 +27,22 @@ function App() {
 
   const [refresh, setRefresh] = useState(Date.now());
 
+  const [genre, setGenre] = useState('All');
+
+  const [sort, setSort] = useState('Default');
+
+  const [rateSort, setRateSort] = useState('All');
+
+  const filterWhat = useRef(null);
+
   useEffect(()=>{
     axios.get('http://localhost:3007/movies')
-    .then(res => { setMovies(res.data) }).catch(_ => setMovies('error'));
+    .then(res => {
+      if(filterWhat.current)
+        setMovies(res.data.map((d, i) => filterWhat.current === d.category ? {...d, show: true, row: i} : {...d, show: false, row: i}));
+      else     
+        setMovies(res.data.map((d, i) => ({...d, show: true, row: i})))})
+    .catch(_ => setMovies('error'));
   }, [refresh]);
 
 
@@ -65,17 +79,37 @@ function App() {
     .then(res => setRefresh(Date.now()));
   }, [editData])
 
+  // useEffect(() =>{
+  //   switch(sort){
+  //     case 'Ascend':
+  //       setMovies(m => [...m].sort((a, b) => a.price - b.price));
+  //       break;
+  //     case 'Descend':
+  //       setMovies(m => [...m].sort((b, a) => a.price - b.price));
+  //       break;
+  //     default:
+  //   }
+  // },[sort]);
+
   return (
     <BrowserRouter>
       <div className="App">
         <MovieContext.Provider value={{
           movies,
+          setMovies,
           setData,
           setCreate,
           setDeleteData,
           modalEdit,
           setModalEdit,
           setEditData,
+          genre,
+          setGenre,
+          filterWhat,
+          sort,
+          setSort,
+          rateSort,
+          setRateSort,
         }}>
         <header className="App-header">
           <nav>
