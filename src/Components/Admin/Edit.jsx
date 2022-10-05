@@ -83,7 +83,7 @@ function Edit(){
             <div className="select-container">
                 <label htmlFor="input_select_rating" className="select-title">Image:</label>
                 {/* read only file type */}
-                <input type="file" ref={fileInput} onChange={doPhoto} className="search-bar new-text new-file" accept="image/*"></input>
+                <input type="file" ref={fileInput} onChange={doPhoto} className="search-bar new-file edit-file" accept="image/*"></input>
             
                 <div className="select-container">
                     

@@ -5,10 +5,6 @@ function Create(){
 
     const { genre, setGenre, setMovies, filterWhat, sort, setSort, rateSort, setRateSort, movies } = useContext(MovieContext);
 
-    const sortData = [
-        {v: 'rate by rating ASC'}
-    ]
-
     const search = () =>{
         switch(sort){
             case 'Ascend':
@@ -19,7 +15,6 @@ function Create(){
                 break;
             default:
         }
-        console.log(movies);
         if(genre === 'All' && rateSort === 'All'){
             setMovies(m => m.map(mo => ({...mo, show: true})));
             filterWhat.current = null;
@@ -29,6 +24,9 @@ function Create(){
             filterWhat.current = genre;
         }
     }
+
+    //MD5, SHA1 not supported
+    //SHA256 supported
 
     return(
         <div className="Create">

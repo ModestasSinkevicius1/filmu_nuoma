@@ -227,9 +227,14 @@ h3{
 
 /* New */
 
-.new-text{
+.new-text,
+.edit-file{
   border-radius: 5px;
   width: 100%;
+}
+
+.select-title{
+  color: white;
 }
 
 .input-container-new{
@@ -312,9 +317,10 @@ h3{
 
 .edit{
   position: fixed;
-  top: 10%;
-  right: 40%;
-  width: 20%;
+  top: 10px;
+  right: 50%;
+  width: 300px;
+  transform: translateX(50%);
   display: flex;
   justify-content: center;
   flex-direction: column;
