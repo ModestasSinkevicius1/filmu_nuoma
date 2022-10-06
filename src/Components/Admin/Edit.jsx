@@ -10,7 +10,7 @@ import getBase64 from "../../Functions/getBase64";
 
 function Edit(){
 
-    const { modalEdit, setModalEdit, setEditData } = useContext(MovieContext);
+    const { modalEdit, setModalEdit, setEditData, cats } = useContext(MovieContext);
 
     const [title, setTitle] = useState('');
     const [cat, setCat] = useState('ds');
@@ -74,9 +74,9 @@ function Edit(){
                 <input type='text' className='text-edit search-bar' value={title} onChange={e => setTitle(e.target.value)} />
                 <select name="edit-select" id="edit-select" className="input-select edit-select" value={cat} onChange={e => setCat(e.target.value)}>
                     <option value='none' disabled>Choose</option>
-                    <option value='Drama'>Drama</option>
-                    <option value='Action'>Action</option>
-                    <option value='Comedy'>Comedy</option>        
+                    {cats?.map(c =>    
+                        <option key={c.id} value={c.name}>{c.name}</option>)
+                    }        
                 </select>
                 <input type='text' className='text-edit search-bar' value={price} onChange={e => setPrice(e.target.value)} />
             </div>

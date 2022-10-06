@@ -3,7 +3,7 @@ import MovieContext from "../Contexts/MovieContext";
 
 function Create(){
 
-    const { genre, setGenre, setMovies, filterWhat, sort, setSort, rateSort, setRateSort } = useContext(MovieContext);
+    const { genre, setGenre, setMovies, filterWhat, sort, setSort, rateSort, setRateSort, cats } = useContext(MovieContext);
 
     const search = () =>{
         switch(sort){
@@ -20,7 +20,7 @@ function Create(){
             filterWhat.current = null;
         }
         else{
-            setMovies(m => m.map(mo => ((mo.category === genre || 'All' === genre) && (mo.rating > parseInt(rateSort) || 'All' === rateSort)) ? {...mo, show: true} : {...mo, show: false}));
+            setMovies(m => m.map(mo => ((cats?.find(c => mo.category === c.id)?.name === genre || 'All' === genre) && (mo.rating > parseInt(rateSort) || 'All' === rateSort)) ? {...mo, show: true} : {...mo, show: false}));
             filterWhat.current = genre;
         }
     }
@@ -48,11 +48,10 @@ function Create(){
                 <div className="select-container">
                     <label htmlFor="input_select_genre" className="select-title">Genre:</label>
                     <select className="input-select" id='input_select_genre' name='input_select_genre' value={genre} onChange={e => setGenre(e.target.value)}>
-                        <option value='none' disabled>Choose</option>
                         <option value='All'>All</option>
-                        <option value='Drama'>Drama</option>
-                        <option value='Action'>Action</option>
-                        <option value='Comedy'>Comedy</option>
+                        {cats?.map(c =>    
+                            <option key={c.id} value={c.name}>{c.name}</option>)
+                        }
                     </select>
                 </div>
                 <div className="select-container">

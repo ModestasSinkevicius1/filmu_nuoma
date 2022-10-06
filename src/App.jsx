@@ -42,6 +42,8 @@ function App() {
 
   const filterWhat = useRef(null);
 
+  const [cats, setCats] = useState(null);
+
   useEffect(()=>{
     axios.get('http://localhost:3007/movies', authConfig())
     .then(res => {
@@ -50,6 +52,13 @@ function App() {
       else     
         setMovies(res.data.map((d, i) => ({...d, show: true, row: i})))})
     .catch(_ => setMovies('error'));
+  }, [refresh]);
+
+  useEffect(()=>{
+    axios.get('http://localhost:3007/cats', authConfig())
+    .then(res => {
+        setCats(res.data)})
+    .catch(_ => setCats('error'));
   }, [refresh]);
 
   //Rate update
@@ -106,6 +115,7 @@ function App() {
           setRateSort,
           listGenre,
           setListGenre,
+          cats,
         }}>
         <header className="App-header">
           <nav>

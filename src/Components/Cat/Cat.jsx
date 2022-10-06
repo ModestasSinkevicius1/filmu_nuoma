@@ -74,9 +74,9 @@ function Cat (){
                             <td>{i + 1}</td>
                             <td>{c.name}</td>
                             <td>
-                                <div className="cat-control">
-                                    <button className="btn" onClick={() => setDeleteData(c)}>Delete</button>
+                                <div className="cat-control">    
                                     <button className="btn" onClick={() => setModalEdit(c)}>Edit</button>
+                                    <button className="btn" onClick={() => setDeleteData(c)}>Delete</button>
                                 </div>
                             </td>
                         </tr> 

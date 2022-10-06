@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 
 function ListItem({ movies }){
 
-    const { setData } = useContext(MovieContext); 
+    const { setData, cats } = useContext(MovieContext); 
 
     const rateMovie = (movie, rate, genre) =>{
 
@@ -22,7 +22,7 @@ function ListItem({ movies }){
             rate_sum: parseFloat(sum),
         });
     } 
-
+    
     return(
         movies?.map(m => m.show ?
         <div className="list-item" key={m.id}>
@@ -32,7 +32,7 @@ function ListItem({ movies }){
             <div className="left-item">
                 <div className="item-info-minor">
                     <h2>{m.title}</h2>
-                    <h3>{m.category}</h3>
+                    <h3>{cats?.find(c => m.category === c.id).name}</h3>
                     <h2 className="item-price-title">{m.price}&euro;</h2>
                 </div>
                 <div className="item-info-major">
@@ -62,7 +62,7 @@ function ListItem({ movies }){
                 </Routes>
                 
             </div>
-        </div> : null)      
+        </div> : null)
     );
 }
 
