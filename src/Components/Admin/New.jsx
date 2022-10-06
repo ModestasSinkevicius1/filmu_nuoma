@@ -8,10 +8,10 @@ import delIcon from '../../imgs/icons/delete.svg';
 
 function New(){
 
-    const { setCreate } = useContext(MovieContext);
+    const { setCreate, listGenre, setListGenre } = useContext(MovieContext);
 
     const [title, setTitle] = useState('');
-    const [cat, setCat] = useState('ds');
+    const [cat, setCat] = useState('Drama');
     const [price, setPrice] = useState('');
 
     const fileInput = useRef();
@@ -27,7 +27,7 @@ function New(){
         });
         setTitle('');
         setPrice('');
-        setCat('ds');
+        setCat('Drama');
         setPhotoPrint(null);
         fileInput.current.value = null;
     }
@@ -40,6 +40,10 @@ function New(){
         })
     }
 
+    const addGenre = () => {
+        setListGenre(g => g.find(gr => gr === cat) === cat ? [...g] : [...g, cat]);
+    }
+
     return(
         <div className="Create New">
             <div className="input-container input-container-new">
@@ -49,12 +53,21 @@ function New(){
                 </div>
                 <div className="select-container">
                     <label htmlFor="input_select_genre" className="select-title">New genre:</label>
-                    <select className="input-select select-new" id='input_select_genre' name='input_select_genre' value={cat} onChange={e => setCat(e.target.value)}>
-                        <option value='none' disabled>Choose</option>
-                        <option value='Drama'>Drama</option>
-                        <option value='Action'>Action</option>
-                        <option value='Comedy'>Comedy</option>
-                    </select>
+                    <div className="genre-list-container">         
+                        <select className="input-select select-new" id='input_select_genre' name='input_select_genre' value={cat} onChange={e => setCat(e.target.value)}>
+                            <option value='none' disabled>Choose</option>
+                            <option value='Drama'>Drama</option>
+                            <option value='Action'>Action</option>
+                            <option value='Comedy'>Comedy</option>
+                        </select>
+                        <button className="btn btn-add" onClick={addGenre}>Add</button>
+                    </div>
+                    <div className="list-genre">
+                        {listGenre.length ? listGenre.map((g, i) => 
+                            <span className="list-genre-title" key={i}>+ {g}</span>
+                        ) : <span className="list-genre-title">No genre</span>
+                        }
+                    </div>
                 </div>
                 <div className="select-container">
                     <label htmlFor="input_select_rating" className="select-title">Price:</label>

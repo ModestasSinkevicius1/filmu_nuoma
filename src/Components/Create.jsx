@@ -3,7 +3,7 @@ import MovieContext from "../Contexts/MovieContext";
 
 function Create(){
 
-    const { genre, setGenre, setMovies, filterWhat, sort, setSort, rateSort, setRateSort, movies } = useContext(MovieContext);
+    const { genre, setGenre, setMovies, filterWhat, sort, setSort, rateSort, setRateSort } = useContext(MovieContext);
 
     const search = () =>{
         switch(sort){

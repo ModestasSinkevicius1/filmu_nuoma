@@ -1,0 +1,56 @@
+.cat{
+    background-color: #282c34;
+    box-shadow: 4px 4px 2px #1d1b1ba7;
+    margin-top: 50px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cat-input-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.cat-input-container .btn{
+    margin: 0 20px;
+}
+
+.search-bar.input-cat-text{
+    border-radius: 5px;
+}
+
+table{
+    margin: 10px;
+    background-color: #30343b;
+    box-shadow: 4px 4px 2px #1d1b1ba7;
+    width: 100%;
+}
+
+th{
+    background-color: #272727;
+    width: 40%;
+}
+
+td{
+    background-color: #1d1b1b;
+}
+
+tr{
+    box-sizing: border-box;
+    padding: 50px;
+}
+
+.cat-control{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-control .btn{
+    margin: 5px;
+}

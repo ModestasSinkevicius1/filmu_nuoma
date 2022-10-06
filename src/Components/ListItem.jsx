@@ -58,7 +58,7 @@ function ListItem({ movies }){
                     </span>
                 </div>
                 <Routes>
-                    <Route path='admin' element={<Control movie ={m}/>}></Route>
+                    <Route path='/admin' element={<Control movie ={m}/>}></Route>
                 </Routes>
                 
             </div>

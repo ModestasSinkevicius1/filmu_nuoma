@@ -1,3 +1,5 @@
+@import url(./Cat.css);
+
 .App {
   text-align: center;
 }
@@ -19,7 +21,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -311,6 +312,35 @@ h3{
   display: flex;
   overflow: hidden;
   justify-content: center;
+}
+
+.genre-list-container{
+  background-color: #272728;
+  border: 2px solid rgba(0, 0, 0, 0.393);
+  border-radius: 5px;
+  text-align: left;
+}
+
+.genre-line{
+  margin-bottom: 0;
+}
+
+.list-genre{
+  max-height: 100px;
+  background-color: #272728;
+  overflow: hidden;
+  overflow-y: scroll;
+  text-align: left;
+}
+
+.list-genre-title{
+  font-size: 14px;
+  margin: 5px;
+  display: block;
+}
+
+.btn-add{
+  width: 50px;
 }
 
 /* Edit */

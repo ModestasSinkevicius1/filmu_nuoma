@@ -10,6 +10,11 @@ import Edit from './Components/Admin/Edit';
 
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import { useRef } from 'react';
+import { authConfig } from './Functions/auth';
+import { RequireAuth } from './Components/Auth/Auth';
+import { LoginPage } from './Components/Auth/Login';
+import { LogoutPage } from './Components/Auth/Logout';
+import Cat from './Components/Cat/Cat';
 
 function App() {
 
@@ -33,10 +38,12 @@ function App() {
 
   const [rateSort, setRateSort] = useState('All');
 
+  const [listGenre, setListGenre] = useState([]);
+
   const filterWhat = useRef(null);
 
   useEffect(()=>{
-    axios.get('http://localhost:3007/movies')
+    axios.get('http://localhost:3007/movies', authConfig())
     .then(res => {
       if(filterWhat.current)
         setMovies(res.data.map((d, i) => filterWhat.current === d.category ? {...d, show: true, row: i} : {...d, show: false, row: i}));
@@ -45,13 +52,12 @@ function App() {
     .catch(_ => setMovies('error'));
   }, [refresh]);
 
-
   //Rate update
   useEffect(()=>{
     if(data === null){
       return;
     }
-    axios.put('http://localhost:3007/movies/' + data.id, data)
+    axios.put('http://localhost:3007/movies/' + data.id, data, authConfig())
     .then(res => setRefresh(Date.now()));
   }, [data]);
 
@@ -59,7 +65,7 @@ function App() {
     if(create === null){
       return;
     }
-    axios.post('http://localhost:3007/movies', create)
+    axios.post('http://localhost:3007/movies', create, authConfig())
     .then(res => setRefresh(Date.now()));
   }, [create])
 
@@ -67,7 +73,7 @@ function App() {
     if (null === deleteData) {
         return;
     }
-    axios.delete('http://localhost:3007/movies/'+ deleteData.id)
+    axios.delete('http://localhost:3007/movies/'+ deleteData.id, authConfig())
     .then(res => setRefresh(Date.now()));
   }, [deleteData]);
 
@@ -75,21 +81,9 @@ function App() {
     if(null === editData){
       return;
     }
-    axios.put('http://localhost:3007/movies/full/'+ editData.id, editData)
+    axios.put('http://localhost:3007/movies/full/'+ editData.id, editData, authConfig())
     .then(res => setRefresh(Date.now()));
   }, [editData])
-
-  // useEffect(() =>{
-  //   switch(sort){
-  //     case 'Ascend':
-  //       setMovies(m => [...m].sort((a, b) => a.price - b.price));
-  //       break;
-  //     case 'Descend':
-  //       setMovies(m => [...m].sort((b, a) => a.price - b.price));
-  //       break;
-  //     default:
-  //   }
-  // },[sort]);
 
   return (
     <BrowserRouter>
@@ -110,17 +104,28 @@ function App() {
           setSort,
           rateSort,
           setRateSort,
+          listGenre,
+          setListGenre,
         }}>
         <header className="App-header">
           <nav>
-            <NavLink to='admin' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Admin</NavLink>
-            <NavLink to='client' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Client</NavLink>
+            <NavLink to="/logout" className="nav-link">Logout</NavLink>
+            <NavLink to='/category' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Category</NavLink>
+            <NavLink to='/admin' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Admin</NavLink>
+            <NavLink to='/client' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Client</NavLink>
           </nav>
-          <Create />
           <Routes>
-            <Route path='admin' element={<New />}></Route>
+            <Route path='/client' element={<><Create /> </>}></Route>
+            <Route path='/admin' element={<><Create /> <New /> </>}></Route>
+            <Route path='/category' element={<Cat />}></Route>
+            {/* <Route path="/" element={<RequireAuth role="user"><List /></RequireAuth>}></Route>
+            <Route path="/login/" element={<LoginPage />} />
+            <Route path="/logout/" element={<LogoutPage />} />
+            <Route path="/client/*" element={<RequireAuth role="admin"><Create /><List /></RequireAuth>}></Route>
+            <Route path="/admin/*" element={<RequireAuth role="admin"><Create /><New /><List /></RequireAuth>}></Route> */}
           </Routes>
           <List />
+          
         </header>
         <footer>
           <span className='footer-title'>Filmai inc.</span>
