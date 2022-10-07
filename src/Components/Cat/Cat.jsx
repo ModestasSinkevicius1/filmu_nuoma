@@ -69,6 +69,15 @@ function Cat (){
         setDeleteData(c);
     }
 
+    const checkIfAllowEdit = (c) =>{
+        if(movies?.find(m => m.category === c.id)){
+            setIsAllowDelete(false);
+            return;
+        }
+        setIsAllowDelete(true);
+        setModalEdit(c);
+    }
+
     return(
         <CatContext.Provider value={{
             cats,
@@ -94,7 +103,7 @@ function Cat (){
                             <td>{c.name}</td>
                             <td>
                                 <div className="cat-control">    
-                                    <button className="btn" onClick={() => setModalEdit(c)}>Edit</button>
+                                    <button className="btn" onClick={() => checkIfAllowEdit(c)}>Edit</button>
                                     <button className="btn" onClick={() => checkIfAllowDelete(c)}>Delete</button>
                                 </div>
                             </td>
@@ -108,7 +117,7 @@ function Cat (){
                 </thead>
                 }           
             </table>
-            {isAllowDelete ? null : <h3 className="warning-cat-title">Cannot delete category since is being used on a movie</h3>}
+            {isAllowDelete ? null : <h3 className="warning-cat-title">Cannot edit/delete category since is being used on a movie</h3>}
             {!isOperationDone ? null : <h3 className="message-cat-title">Category has been succesfully removed</h3>}
             <Edit />
         </div>
