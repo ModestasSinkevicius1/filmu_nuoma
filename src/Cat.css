@@ -54,3 +54,13 @@ tr{
 .cat-control .btn{
     margin: 5px;
 }
+
+.warning-cat-title{
+    color: red;
+    width: 100%;
+}
+
+.message-cat-title{
+    color: green;
+    width: 100%;
+}

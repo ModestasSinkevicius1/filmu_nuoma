@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import CatContext from "../../Contexts/CatContext";
+import MovieContext from "../../Contexts/MovieContext";
 import Create from "./Create";
 import Edit from "./Edit";
 
@@ -18,6 +20,12 @@ function Cat (){
     const [modalEdit, setModalEdit] = useState(null);
 
     const [editData, setEditData] = useState(null);
+
+    const [isAllowDelete, setIsAllowDelete] = useState(true);
+
+    const [isOperationDone, setIsOperationDone] = useState(false);
+
+    const { movies } = useContext(MovieContext);
 
     useEffect(()=>{
         axios.get('http://localhost:3007/cats')
@@ -50,6 +58,17 @@ function Cat (){
         .then(res => setRefresh(Date.now()));
     }, [editData])
 
+    const checkIfAllowDelete = (c) =>{
+        if(movies?.find(m => m.category === c.id)){
+            setIsAllowDelete(false);
+            setIsOperationDone(false);
+            return;
+        }
+        setIsAllowDelete(true);
+        setIsOperationDone(true);
+        setDeleteData(c);
+    }
+
     return(
         <CatContext.Provider value={{
             cats,
@@ -76,7 +95,7 @@ function Cat (){
                             <td>
                                 <div className="cat-control">    
                                     <button className="btn" onClick={() => setModalEdit(c)}>Edit</button>
-                                    <button className="btn" onClick={() => setDeleteData(c)}>Delete</button>
+                                    <button className="btn" onClick={() => checkIfAllowDelete(c)}>Delete</button>
                                 </div>
                             </td>
                         </tr> 
@@ -89,6 +108,8 @@ function Cat (){
                 </thead>
                 }           
             </table>
+            {isAllowDelete ? null : <h3 className="warning-cat-title">Cannot delete category since is being used on a movie</h3>}
+            {!isOperationDone ? null : <h3 className="message-cat-title">Category has been succesfully removed</h3>}
             <Edit />
         </div>
         </CatContext.Provider>
