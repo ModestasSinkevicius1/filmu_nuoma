@@ -27,18 +27,27 @@ function Edit(){
         if(modalEdit === null){
             return;
         }
+        resetPhoto();
+
         setTitle(modalEdit.title);
-        setCat(modalEdit.category);
+        setCat(cats?.find(c => c.id === modalEdit.category)?.name);
         setPrice(modalEdit.price);
         setPhotoPrint(modalEdit.image);
 
-    },[modalEdit])
+    },[modalEdit, cats])
 
     if(modalEdit === null){
         return null;
     }
 
+
+    const resetPhoto = () => {
+        setIsPhotoDel(false);
+        setFade(100);
+    }
+
     const doPhoto = () => {
+        resetPhoto();
         getBase64(fileInput.current.files[0])
         .then(photo => setPhotoPrint(photo))
         .catch(_ => {
@@ -51,7 +60,7 @@ function Edit(){
             id: modalEdit.id,
             title,
             price,
-            cat,
+            cat: cats?.find(c => c.name === cat)?.id,
             image: !isPhotoDel ? photoPrint : null,
         })
         setFade(100);

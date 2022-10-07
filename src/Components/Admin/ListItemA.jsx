@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import MovieContext from "../Contexts/MovieContext";
-import star from '../imgs/icons/star.svg';
-import noImage from '../imgs/no-image.jpg';
+import MovieContext from "../../Contexts/MovieContext";
+import Control from "./../Admin/Control.jsx";
+import star from '../../imgs/icons/star.svg';
+import noImage from '../../imgs/no-image.jpg';
 
-function ListItem({ movies }){
+function ListItemA({ movies }){
 
     const { setData, cats } = useContext(MovieContext); 
 
@@ -54,10 +55,11 @@ function ListItem({ movies }){
                     <span className="star-rate" id='star-rate-1' onClick={() => rateMovie(m, 5)}>
                         <img src={star} alt='star'></img>
                     </span>
-                </div>                
+                </div>
+                <Control movie ={m}/>             
             </div>
         </div> : null)
     );
 }
 
-export default ListItem;
+export default ListItemA;

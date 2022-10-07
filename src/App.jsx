@@ -11,10 +11,11 @@ import Edit from './Components/Admin/Edit';
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import { useRef } from 'react';
 import { authConfig } from './Functions/auth';
-import { RequireAuth } from './Components/Auth/Auth';
-import { LoginPage } from './Components/Auth/Login';
-import { LogoutPage } from './Components/Auth/Logout';
+// import { RequireAuth } from './Components/Auth/Auth';
+// import { LoginPage } from './Components/Auth/Login';
+// import { LogoutPage } from './Components/Auth/Logout';
 import Cat from './Components/Cat/Cat';
+import ListA from './Components/Admin/ListA.jsx';
 
 function App() {
 
@@ -125,17 +126,15 @@ function App() {
             <NavLink to='/client' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Client</NavLink>
           </nav>
           <Routes>
-            <Route path='/client' element={<><Create /> </>}></Route>
-            <Route path='/admin' element={<><Create /> <New /> </>}></Route>
+            <Route path='/client' element={<><Create /> <List /></>}></Route>
+            <Route path='/admin' element={<><Create /> <New /> <ListA /></>}></Route>
             <Route path='/category' element={<Cat />}></Route>
             {/* <Route path="/" element={<RequireAuth role="user"><List /></RequireAuth>}></Route>
             <Route path="/login/" element={<LoginPage />} />
             <Route path="/logout/" element={<LogoutPage />} />
             <Route path="/client/*" element={<RequireAuth role="admin"><Create /><List /></RequireAuth>}></Route>
             <Route path="/admin/*" element={<RequireAuth role="admin"><Create /><New /><List /></RequireAuth>}></Route> */}
-          </Routes>
-          <List />
-          
+          </Routes>     
         </header>
         <footer>
           <span className='footer-title'>Filmai inc.</span>

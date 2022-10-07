@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import MovieContext from "../Contexts/MovieContext";
-import ListItem from "./ListItem.jsx";
+import MovieContext from "../../Contexts/MovieContext";
+import ListItemA from "./ListItemA.jsx";
 
-function List(){
+function ListA(){
 
     const { movies } = useContext(MovieContext);
 
     const CheckStatus = () =>{
         if(movies !== 'error'){
-            return <ListItem movies = {movies} />
+            return <ListItemA movies = {movies} />
         }
         else{
             return <span>Failed to fetch movies</span>
@@ -23,4 +23,4 @@ function List(){
     );
 }
 
-export default List;
+export default ListA;
