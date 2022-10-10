@@ -1,49 +1,37 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import Create from './Components/Create';
-import List from './Components/List';
+import Create from './Components/Client/Create';
+import List from './Components/Client/List.jsx';
 import axios from 'axios';
 import MovieContext from './Contexts/MovieContext';
 import New from './Components/Admin/New';
 import Edit from './Components/Admin/Edit';
-
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useRef } from 'react';
-import { authConfig } from './Functions/auth';
-// import { RequireAuth } from './Components/Auth/Auth';
-// import { LoginPage } from './Components/Auth/Login';
-// import { LogoutPage } from './Components/Auth/Logout';
+import { authConfig,  } from './Functions/auth';
+import { RequireAuth, LoginPage, LogoutPage } from './Components/Auth/Auth';
 import Cat from './Components/Cat/Cat';
 import ListA from './Components/Admin/ListA.jsx';
+import Nav from './Components/Nav';
 
 function App() {
 
   const [movies, setMovies] = useState(null);
-
   const [data, setData] = useState(null);
 
   const [deleteData, setDeleteData] = useState(null);
-
   const [editData, setEditData] = useState(null);
-
   const [modalEdit, setModalEdit] = useState(null);
-
   const [create, setCreate] = useState(null);
 
   const [refresh, setRefresh] = useState(Date.now());
-
   const [genre, setGenre] = useState('All');
-
   const [sort, setSort] = useState('Default');
-
   const [rateSort, setRateSort] = useState('All');
-
   const [listGenre, setListGenre] = useState([]);
-
   const filterWhat = useRef(null);
-
   const [cats, setCats] = useState(null);
+  const [roleChange, setRoleChange] = useState(Date.now());
 
   useEffect(()=>{
     axios.get('http://localhost:3007/movies', authConfig())
@@ -60,7 +48,7 @@ function App() {
     .then(res => {
         setCats(res.data)})
     .catch(_ => setCats('error'));
-  }, [refresh]);
+  }, []);
 
   //Rate update
   useEffect(()=>{
@@ -119,21 +107,13 @@ function App() {
           cats,
         }}>
         <header className="App-header">
-          <nav>
-            <NavLink to="/logout" className="nav-link">Logout</NavLink>
-            <NavLink to='/category' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Category</NavLink>
-            <NavLink to='/admin' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Admin</NavLink>
-            <NavLink to='/client' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Client</NavLink>
-          </nav>
+          <ShowNav roleChange={roleChange} />
           <Routes>
-            <Route path='/client' element={<><Create /> <List /></>}></Route>
-            <Route path='/admin' element={<><Create /> <New /> <ListA /></>}></Route>
-            <Route path='/category' element={<Cat />}></Route>
-            {/* <Route path="/" element={<RequireAuth role="user"><List /></RequireAuth>}></Route>
-            <Route path="/login/" element={<LoginPage />} />
-            <Route path="/logout/" element={<LogoutPage />} />
-            <Route path="/client/*" element={<RequireAuth role="admin"><Create /><List /></RequireAuth>}></Route>
-            <Route path="/admin/*" element={<RequireAuth role="admin"><Create /><New /><List /></RequireAuth>}></Route> */}
+            <Route path='/client' element={<RequireAuth role='user'><Create /> <List /></RequireAuth>}></Route>
+            <Route path="/login" element={<LoginPage setRoleChange={setRoleChange} />} />
+            <Route path="/logout" element={<LogoutPage setRoleChange={setRoleChange} />} />
+            <Route path="/category" element={<RequireAuth role="admin"><Cat /></RequireAuth>}></Route>
+            <Route path="/admin" element={<RequireAuth role="admin"><Create /> <New /> <ListA /></RequireAuth>}></Route>
           </Routes>     
         </header>
         <footer>
@@ -145,6 +125,17 @@ function App() {
       </div>
     </BrowserRouter>
   );
+}
+
+function ShowNav({roleChange}) {
+  const [status, setStatus] = useState(1);
+  useEffect(() => {
+    axios.get('http://localhost:3007/login-check?role=admin', authConfig())
+      .then(res => {
+        setStatus(res.data.status);
+      })
+  }, [roleChange]);
+  return <Nav status={status} />
 }
 
 export default App;

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import CatContext from "../../Contexts/CatContext";
 import MovieContext from "../../Contexts/MovieContext";
+import { authConfig } from "../../Functions/auth";
 import Create from "./Create";
 import Edit from "./Edit";
 
@@ -28,7 +29,7 @@ function Cat (){
     const { movies } = useContext(MovieContext);
 
     useEffect(()=>{
-        axios.get('http://localhost:3007/cats')
+        axios.get('http://localhost:3007/cats', authConfig())
         .then(res => {  
             setCats(res.data)})
         .catch(_ => setCats('error'));
@@ -38,7 +39,7 @@ function Cat (){
         if(saveData === null){
             return;
         }
-        axios.post('http://localhost:3007/cats', saveData)
+        axios.post('http://localhost:3007/cats', saveData, authConfig())
         .then(res => setRefresh(Date.now()));
     }, [saveData])
 
@@ -46,7 +47,7 @@ function Cat (){
         if(deleteData === null){
             return;
         }
-        axios.delete('http://localhost:3007/cats/' + deleteData.id)
+        axios.delete('http://localhost:3007/cats/' + deleteData.id, authConfig())
         .then(res => setRefresh(Date.now()));
     }, [deleteData])
 
@@ -54,7 +55,7 @@ function Cat (){
         if(editData === null){
             return;
         }
-        axios.put('http://localhost:3007/cats/' + editData.id, editData)
+        axios.put('http://localhost:3007/cats/' + editData.id, editData, authConfig())
         .then(res => setRefresh(Date.now()));
     }, [editData])
 

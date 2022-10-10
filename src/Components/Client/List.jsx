@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MovieContext from "../Contexts/MovieContext";
+import MovieContext from "../../Contexts/MovieContext";
 import ListItem from "./ListItem.jsx";
 
 function List(){

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import MovieContext from "../Contexts/MovieContext";
-import star from '../imgs/icons/star.svg';
-import noImage from '../imgs/no-image.jpg';
+import MovieContext from "../../Contexts/MovieContext";
+import star from '../../imgs/icons/star.svg';
+import noImage from '../../imgs/no-image.jpg';
 
 function ListItem({ movies }){
 

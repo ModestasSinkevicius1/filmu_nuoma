@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { authConfig } from "../../Functions/auth";
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { login, logout, authConfig } from "../../Functions/auth";
 
 export function RequireAuth({ children, role }) {
     const [view, setView] = useState(<h2>Please wait...</h2>);
@@ -10,9 +9,12 @@ export function RequireAuth({ children, role }) {
       axios.get('http://localhost:3007/login-check?role=' + role, authConfig())
         .then(res => {
           if ('ok' === res.data.msg) {
-            console.log(role);
             setView(children);
-          } else {
+          }
+          else if (res.data.status === 2) {
+            setView(<h2>Unauthorize...</h2>)
+          }
+          else {
             setView(<Navigate to="/login" replace />);
           }
         })
@@ -20,4 +22,41 @@ export function RequireAuth({ children, role }) {
     }, [children, role]);
   
     return view;
+}
+
+export function LoginPage({setRoleChange}) {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
+
+  const doLogin = () => {
+    axios.post('http://localhost:3007/login', { user, pass })
+      .then(res => {
+        setRoleChange(Date.now());
+        if ('ok' === res.data.msg) {
+          login(res.data.key);
+          navigate('/client', { replace: true });
+        }
+      })
+  }
+  return (
+    <div className="login-container">
+      <h2>Login</h2>
+      <div className="login-row"><label>Name: </label><input type="text" className="login-input-text" value={user} onChange={e => setUser(e.target.value)}></input></div>
+      <div className="login-row"><label>Password: </label><input type="password" className="login-input-text" value={pass} onChange={e => setPass(e.target.value)}></input></div>
+      <button onClick={doLogin} className='btn btn-login'>Login</button>
+    </div>
+  );
+}
+
+export function LogoutPage({setRoleChange}) {
+  useEffect(() => {
+    logout();
+    setRoleChange(Date.now());
+  }, [setRoleChange]);
+
+  return (
+    <Navigate to="/login" replace />
+  )
 }
