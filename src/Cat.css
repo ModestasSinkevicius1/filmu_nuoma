@@ -38,6 +38,7 @@ th{
 
 td{
     background-color: #1d1b1b;
+    overflow-wrap: break-word;
 }
 
 tr{

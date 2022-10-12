@@ -27,7 +27,7 @@ function Comments({ m }){
             <div className="comment-container">
                 <hr></hr>
                 <h3>Comments</h3>
-                {m.map(com => 
+                {m.slice(0).reverse().map(com => 
                     <div className="comment-area" key={com.cid}>
                         <span style={{fontWeight: 'bold', display: 'block'}}>Anonymous:</span><br></br>
                         <span>{com.post}</span>

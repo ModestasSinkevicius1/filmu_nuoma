@@ -7,8 +7,8 @@ function Control( {movie} ){
 
     return(
         <div className="control">
-            <button className="btn edit-btn" onClick={() => setModalEdit(movie)}>Edit</button>
-            <button className="btn edit-btn" onClick={() => setDeleteData(movie)}>Delete</button>
+            <button className="btn edit-btn" onClick={() => setModalEdit(movie[1][0])}>Edit</button>
+            <button className="btn edit-btn" onClick={() => setDeleteData(movie[1][0])}>Delete</button>
         </div>
     );
 }

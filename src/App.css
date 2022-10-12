@@ -47,6 +47,15 @@ nav, footer{
   box-shadow: 4px 4px 2px #1d1b1ba7;
 }
 
+nav{
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-control{
+  display: flex;
+}
+
 .nav-link{
   text-decoration: none;
   color: white;
@@ -245,6 +254,7 @@ h3{
   box-shadow: 2px 2px 5px #000000a7;
   min-height: 100px;
   padding: 5px;
+  overflow-wrap: break-word;
 }
 
 .comment-textarea{
