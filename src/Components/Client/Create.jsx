@@ -16,11 +16,16 @@ function Create(){
             default:
         }
         if(genre === 'All' && rateSort === 'All'){
-            setMovies(m => m.map(mo => ({...mo, show: false})));
+            setMovies(m => [...m].map(mo => ([mo[0], mo[1], {show: true}])));
             filterWhat.current = null;
         }
         else{
-            setMovies(m => m.map(mo => ((cats?.find(c => mo[1][0].category === c.id)?.name === genre || 'All' === genre) && (mo[1][0].rating > parseInt(rateSort) || 'All' === rateSort)) ? {...mo, show: true} : {...mo, show: false}));
+            setMovies(m => [...m].map(mo => ((cats?.find(c => mo[1][0].category === c.id)
+                                             ?.name === genre || 
+                                             'All' === genre) && 
+                                             (mo[1][0].rating > parseInt(rateSort) || 
+                                             'All' === rateSort)) 
+                                             ? ([mo[0], mo[1], {show: true}]) : ([mo[0], mo[1], {show: false}])));
             filterWhat.current = genre;
         }
     }

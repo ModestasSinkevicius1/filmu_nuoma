@@ -108,7 +108,7 @@ function App() {
             d.set(line.title, [line]);
         }
     });
-    return [...d].map((d1, i) => ([...d1, {show: true, row: i}]));
+    return [...d].map((d1, i) => ([...d1, {show: true}]));
   }
 
   return (

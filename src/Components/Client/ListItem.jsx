@@ -20,6 +20,7 @@ function ListItem({ movies }){
             rate_sum: parseFloat(sum),
         });
     }
+    console.log(movies);
     return(
         movies?.map((m, i) => m[2].show ?
         <div className="list-item" key={i}>
