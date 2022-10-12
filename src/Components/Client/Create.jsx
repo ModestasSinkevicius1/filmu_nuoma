@@ -8,19 +8,19 @@ function Create(){
     const search = () =>{
         switch(sort){
             case 'Ascend':
-                setMovies(m => [...m].sort((a, b) => a.price - b.price));
+                setMovies(m => [...m].sort((a, b) => a[1][0].price - b[1][0].price));
                 break;
             case 'Descend':
-                setMovies(m => [...m].sort((b, a) => a.price - b.price));
+                setMovies(m => [...m].sort((b, a) => a[1][0].price - b[1][0].price));
                 break;
             default:
         }
         if(genre === 'All' && rateSort === 'All'){
-            setMovies(m => m.map(mo => ({...mo, show: true})));
+            setMovies(m => m.map(mo => ({...mo, show: false})));
             filterWhat.current = null;
         }
         else{
-            setMovies(m => m.map(mo => ((cats?.find(c => mo.category === c.id)?.name === genre || 'All' === genre) && (mo.rating > parseInt(rateSort) || 'All' === rateSort)) ? {...mo, show: true} : {...mo, show: false}));
+            setMovies(m => m.map(mo => ((cats?.find(c => mo[1][0].category === c.id)?.name === genre || 'All' === genre) && (mo[1][0].rating > parseInt(rateSort) || 'All' === rateSort)) ? {...mo, show: true} : {...mo, show: false}));
             filterWhat.current = genre;
         }
     }

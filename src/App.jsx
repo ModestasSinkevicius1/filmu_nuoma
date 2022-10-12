@@ -13,6 +13,8 @@ import { RequireAuth, LoginPage, LogoutPage } from './Components/Auth/Auth';
 import Cat from './Components/Cat/Cat';
 import ListA from './Components/Admin/ListA.jsx';
 import Nav from './Components/Nav';
+import Register from './Components/Register/Register';
+import CommentsPage from './Components/Comments/CommentsPage';
 
 function App() {
 
@@ -33,13 +35,17 @@ function App() {
   const [cats, setCats] = useState(null);
   const [roleChange, setRoleChange] = useState(Date.now());
 
+  const [newComment, setNewComment] = useState(null);
+
   useEffect(()=>{
     axios.get('http://localhost:3007/movies', authConfig())
     .then(res => {
-      if(filterWhat.current)
-        setMovies(res.data.map((d, i) => filterWhat.current === d.category ? {...d, show: true, row: i} : {...d, show: false, row: i}));
-      else     
-        setMovies(res.data.map((d, i) => ({...d, show: true, row: i})))})
+      // if(filterWhat.current)
+      //   setMovies(res.data.map((d, i) => filterWhat.current === d.category ? {...d, show: true, row: i} : {...d, show: false, row: i}));       
+      // else     
+      //   setMovies(res.data.map((d, i) => ({...d, show: true, row: i})))
+      setMovies(reList(res.data));
+    })
     .catch(_ => setMovies('error'));
   }, [refresh]);
 
@@ -65,7 +71,17 @@ function App() {
     }
     axios.post('http://localhost:3007/movies', create, authConfig())
     .then(res => setRefresh(Date.now()));
-  }, [create])
+  }, [create]);
+  
+  useEffect(()=>{
+    if(null === newComment){
+      return;
+    }
+    axios.post('http://localhost:3007/movies/comments/' + newComment.movie_id, newComment, authConfig())
+    .then(res => {
+      setRefresh(Date.now());
+    });
+  }, [newComment])
 
   useEffect(() => {
     if (null === deleteData) {
@@ -81,7 +97,19 @@ function App() {
     }
     axios.put('http://localhost:3007/movies/full/'+ editData.id, editData, authConfig())
     .then(res => setRefresh(Date.now()));
-  }, [editData])
+  }, [editData]);
+
+  const reList = data => {
+    const d = new Map();
+    data.forEach(line => {
+        if (d.has(line.title)) {
+            d.set(line.title, [...d.get(line.title), line]);
+        } else {
+            d.set(line.title, [line]);
+        }
+    });
+    return [...d].map((d1, i) => ([...d1, {show: true, row: i}]));
+  }
 
   return (
     <BrowserRouter>
@@ -105,6 +133,8 @@ function App() {
           listGenre,
           setListGenre,
           cats,
+          setNewComment,
+          setRefresh,
         }}>
         <header className="App-header">
           <ShowNav roleChange={roleChange} />
@@ -114,6 +144,8 @@ function App() {
             <Route path="/logout" element={<LogoutPage setRoleChange={setRoleChange} />} />
             <Route path="/category" element={<RequireAuth role="admin"><Cat /></RequireAuth>}></Route>
             <Route path="/admin" element={<RequireAuth role="admin"><Create /> <New /> <ListA /></RequireAuth>}></Route>
+            <Route path="/comments" element={<RequireAuth role="admin"><CommentsPage /></RequireAuth>}></Route>
+            <Route path="/register" element={<Register setRoleChange={setRoleChange} />} />
           </Routes>     
         </header>
         <footer>

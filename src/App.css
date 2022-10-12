@@ -179,6 +179,7 @@ hr{
   text-align: left;
   background-color: #1d1b1b;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .item-info-major span{
@@ -195,6 +196,7 @@ h2,h3{
 
 .item-price-title{
   width: 100px;
+  display: block;
 }
 
 h3{
@@ -205,12 +207,57 @@ h3{
 .right-item{
   display: flex;
   justify-content: flex-end;
-  width: 50%;
+  width: 45%;
 
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-around;
+}
+
+/* Comments */
+
+.comment-container{
+  width: 100%;
+}
+
+.comment-new-title{
+  font-size: 18px;
+}
+
+.comment-new{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  min-height: 200px;
+}
+
+.comment-btn-container{
+  width: 100%;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.comment-area{
+  margin: 10px;
+  background-color:#1e2026;
+  box-shadow: 2px 2px 5px #000000a7;
+  min-height: 100px;
+  padding: 5px;
+}
+
+.comment-textarea{
+  margin: 10px;
+  background-color:#272728;
+  border: #1d1b1ba7 inset;;
+  outline: none;
+  color: white;
+  resize: none;
+  min-height: 100px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
 }
 
 /* Star system */
@@ -313,6 +360,7 @@ h3{
   display: flex;
   overflow: hidden;
   justify-content: center;
+  margin: 10px 0 0 10px;
 }
 
 .genre-list-container{
